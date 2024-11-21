@@ -13,6 +13,7 @@ class Arrow extends StatelessWidget {
     return Icon(
       icon,
       size: size,
+      color: Colors.white.withOpacity(0.5),
     );
   }
 
