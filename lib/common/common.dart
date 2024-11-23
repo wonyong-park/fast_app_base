@@ -23,6 +23,12 @@ export 'widget/w_empty_expanded.dart';
 export 'widget/w_height_and_width.dart';
 export 'widget/w_line.dart';
 export 'widget/w_tap.dart';
+export 'widget/w_arrow.dart';
+export 'widget/w_big_button.dart';
+export 'widget/w_image_button.dart';
+export 'widget/w_long_button.dart';
+export 'widget/w_round_button.dart';
+
 
 const defaultFontStyle = GoogleFonts.ptSerif;
 
