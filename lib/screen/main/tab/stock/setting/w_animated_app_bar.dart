@@ -16,7 +16,7 @@ class AnimatedAppBar extends StatefulWidget {
 }
 
 class _AnimatedAppBarState extends State<AnimatedAppBar> {
-  final duration = 250.ms;
+  final duration = 20.ms;
   double scrollPosition = 0;
 
   @override
@@ -32,10 +32,11 @@ class _AnimatedAppBarState extends State<AnimatedAppBar> {
   }
 
   bool get isTriggered => scrollPosition > 80;
+
   bool get isNotTriggered => !isTriggered;
 
   double getValue(double initial, double target) {
-    if(isTriggered) {
+    if (isTriggered) {
       return target;
     }
 
@@ -60,11 +61,28 @@ class _AnimatedAppBarState extends State<AnimatedAppBar> {
           ),
           AnimatedContainer(
             duration: duration,
-            padding: EdgeInsets.only(left: getValue(20,50), top: getValue(50, 15)),
+            padding: EdgeInsets.only(left: getValue(20, 50), top: getValue(50, 15)),
             child: AnimatedDefaultTextStyle(
               duration: duration,
               style: TextStyle(fontSize: isNotTriggered ? 30 : 18),
               child: widget.title.text.make(),
+            ),
+          ),
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.topRight,
+              child: TweenAnimationBuilder<Color?>(
+                duration: 1000.ms,
+                tween: ColorTween(begin: Colors.green, end: isTriggered ? Colors.orange : Colors.green),
+                builder: (context, value, child) => ColorFiltered(
+                  colorFilter: ColorFilter.mode(value ?? Colors.green, BlendMode.modulate),
+                  child: child,
+                ),
+                child: Image.asset(
+                  '$basePath/icon/map_point.png',
+                  height: 60,
+                ),
+              ),
             ),
           ),
         ]),
