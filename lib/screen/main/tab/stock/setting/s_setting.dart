@@ -15,8 +15,9 @@ class SettingScreen extends StatefulWidget {
   State<SettingScreen> createState() => _SettingScreenState();
 }
 
-class _SettingScreenState extends State<SettingScreen> {
+class _SettingScreenState extends State<SettingScreen> with SingleTickerProviderStateMixin {
   final scrollController = ScrollController();
+  late final AnimationController animationController = AnimationController(vsync: this, duration: 2000.ms);
 
   @override
   void dispose() {
@@ -46,6 +47,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 () => Slider(
                   value: Prefs.sliderPosition.get(),
                   onChanged: (value) {
+                    animationController.animateTo(value, duration: 0.ms);
                     Prefs.sliderPosition.set(value);
                   },
                 ),
@@ -83,6 +85,18 @@ class _SettingScreenState extends State<SettingScreen> {
                   },
                 ),
               ),
+              BigButton('Animation forward', onTap: () {
+                animationController.forward();
+              }),
+              BigButton('Animation reverse', onTap: () {
+                animationController.reverse();
+              }),
+              BigButton('Animation repeat', onTap: () {
+                animationController.repeat();
+              }),
+              BigButton('Animation reset', onTap: () {
+                animationController.reset();
+              }),
               ...List.generate(
                 10,
                 (index) => BigButton('오픈소스 화면', onTap: () async {
@@ -93,7 +107,8 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
           AnimatedAppBar(
             '설정',
-            controller: scrollController,
+            scrollController: scrollController,
+            animationController: animationController,
           ),
         ],
       ),
